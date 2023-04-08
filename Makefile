@@ -2,7 +2,7 @@ NAME = Azimuth
 
 MLX_DIR = ./MLX42
 MLX_LIB = $(MLX_DIR)/libmlx42.a 
-MLX_FLAGS = -lglfw3 #-framework Cocoa -framework OpenGL -framework IOKit
+MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm #-lglfw3 #-framework Cocoa -framework OpenGL -framework IOKit
 MLX_INCL = $(MLX_DIR)/include/MLX42
 
 SRC_DIR = ./src
