@@ -1,5 +1,7 @@
-
+.vs\*
 Temp/*
 Library/*
 Logs/*
 UserSettings/*
+obj\*
+Assembly-CSharp.csproj
