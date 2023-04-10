@@ -6,6 +6,25 @@ using UnityEngine;
 
 public static class CubeSphere
 {
+	public static SimpleMeshData[] GenerateFaces(int resolution)
+	{
+		SimpleMeshData[] all = new SimpleMeshData[6];
+		Vector3[] cubeFaces =
+		{
+			Vector3.up,
+			Vector3.down,
+			Vector3.left,
+			Vector3.right,
+			Vector3.forward,
+			Vector3.back
+		};
+
+		for (int i = 0; i < cubeFaces.Length; i++)
+		{
+			all[i] = CreateFace(cubeFaces[i], resolution);
+		}
+		return all;
+	}
 	static SimpleMeshData CreateFace(Vector3 normal, int resolution) //Vector2 startT, Vector2 endT, float radius)
 	{
 		Vector3 axisA = new Vector3(normal.y, normal.z, normal.x);
