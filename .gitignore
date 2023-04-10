@@ -1,7 +1,8 @@
-.vs\*
+.vs/*
 Temp/*
 Library/*
 Logs/*
 UserSettings/*
-obj\*
+obj/*
 Assembly-CSharp.csproj
+Unity_WorldMap.sln
