@@ -27,13 +27,17 @@ public static class CubeSphere
 	}
 	static SimpleMeshData CreateFace(Vector3 normal, int resolution) //Vector2 startT, Vector2 endT, float radius)
 	{
+		// For every face of e.g. a cube, axisA & B are the dimensions
+		// that express the width and length of a plane with that facing. 
 		Vector3 axisA = new Vector3(normal.y, normal.z, normal.x);
 		Vector3 axisB = Vector3.Cross(normal, axisA);
 		
 		int numVerts = resolution * resolution;
 		Vector3[] vertices = new Vector3[numVerts];
 
-		int numTris = (resolution - 1) * (resolution - 1) * 6;
+		// (Resolution - 1)^2 is number of squares on a face.
+		// Each square is 2 triangles with 3 vertices = 6.
+		int numTris = (resolution - 1) * (resolution - 1) * 6; 
 		int[] triangles = new int[numTris];
 		int triIndex = 0;
 
@@ -49,9 +53,15 @@ public static class CubeSphere
 			//float tx = startT.x;
 			for (int x = 0; x < resolution; x++)
 			{
-				int vertexIndex = x + y * resolution;
+				//uv-mapping: keeps track of what 'percentage done' the loop is between 0 and 1.
 				Vector2 uv = new Vector2(x / (resolution - 1f), y / (resolution - 1f));
+				
+				// We move 1 unit along localUp (normal) to get from centre of cube to the face we want.
+				// Then we translate uv from a val between 0 and 1 to a value between -1 and 1,
+				// and multiply it by its local x y equivalents.
 				Vector3 pointOnUnitCube = normal + axisA * (2 * uv.x - 1) + axisB * (2 * uv.y - 1);
+				
+				int vertexIndex = x + y * resolution;
 				vertices[vertexIndex] = pointOnUnitCube;
 
 				//Vector3 pointOnUnitSphere = CubePointToSpherePoint(pointOnUnitCube);
@@ -62,9 +72,12 @@ public static class CubeSphere
 
 				if (x != resolution - 1 && y != resolution - 1)
 				{
+					//Stores all three points of each of the
+					//two triangles in a square, in clockwise order.
 					triangles[triIndex] = vertexIndex;
 					triangles[triIndex + 1] = vertexIndex + resolution + 1;
 					triangles[triIndex + 2] = vertexIndex + resolution;
+
 					triangles[triIndex + 3] = vertexIndex;
 					triangles[triIndex + 4] = vertexIndex + 1;
 					triangles[triIndex + 5] = vertexIndex + resolution + 1;
