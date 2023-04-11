@@ -87,6 +87,11 @@ public static class CubeSphere
 			}
 			//ty += dy;
 		}
-		return new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
+		SimpleMeshData ret = new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
+		//ret.tempMesh.Clear();
+		//ret.tempMesh.vertices = vertices;
+		//ret.tempMesh.triangles = triangles;
+		//ret.tempMesh.RecalculateNormals();
+		return ret; 
 	}
 }
