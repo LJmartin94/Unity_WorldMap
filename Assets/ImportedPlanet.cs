@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ImportedPlanet : MonoBehaviour
 {
-
     [Range(2, 256)]
     public int resolution = 10;
 
