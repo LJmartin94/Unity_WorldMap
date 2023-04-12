@@ -8,8 +8,6 @@ public class SimpleMeshData
 {
     public string name;
 
-    public Mesh tempMesh;
-
     public int[] triangles = new int[0];
     public Vector3[] vertices = new Vector3[0];
     public Vector3[] normals = new Vector3[0];
