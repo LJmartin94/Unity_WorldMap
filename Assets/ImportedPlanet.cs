@@ -38,7 +38,6 @@ public class ImportedPlanet : MonoBehaviour
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
             }
-
             terrainFaces[i] = new ImportedTerrainFace(meshFilters[i].sharedMesh, resolution, directions[i]);
         }
     }

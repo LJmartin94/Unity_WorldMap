@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ImportedTerrainFace
 {
-
     Mesh mesh;
     int resolution;
     Vector3 localUp;
