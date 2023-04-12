@@ -48,6 +48,7 @@ public static class CubeSphere
 		//float dx = (endT.x - startT.x) / (resolution - 1);
 		//float dy = (endT.y - startT.y) / (resolution - 1);
 
+		int vertexIndex = 0;
 		for (int y = 0; y < resolution; y++)
 		{
 			//float tx = startT.x;
@@ -61,7 +62,6 @@ public static class CubeSphere
 				// and multiply it by its local x y equivalents.
 				Vector3 pointOnUnitCube = normal + axisA * (2 * uv.x - 1) + axisB * (2 * uv.y - 1);
 				
-				int vertexIndex = x + y * resolution;
 				vertices[vertexIndex] = pointOnUnitCube;
 
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
@@ -73,10 +73,10 @@ public static class CubeSphere
                 //uvs[vertexIndex] = uv;
 
                 if (x != resolution - 1 && y != resolution - 1)
-				{
-					//Stores all three points of each of the
-					//two triangles in a square, in clockwise order.
-					triangles[triIndex] = vertexIndex;
+                {
+                    //Stores all three points of each of the
+                    //two triangles in a square, in clockwise order.
+                    triangles[triIndex] = vertexIndex;
 					triangles[triIndex + 1] = vertexIndex + resolution + 1;
 					triangles[triIndex + 2] = vertexIndex + resolution;
 
@@ -84,9 +84,10 @@ public static class CubeSphere
 					triangles[triIndex + 4] = vertexIndex + 1;
 					triangles[triIndex + 5] = vertexIndex + resolution + 1;
 					triIndex += 6;
-				}
-				//tx += dx;
-			}
+                }
+                //tx += dx;
+                vertexIndex++;
+            }
 			//ty += dy;
 		}
 		SimpleMeshData ret = new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
