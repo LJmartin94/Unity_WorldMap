@@ -14,4 +14,15 @@ public static class GeoMaths
         
         return new LatLongRad(lat, l0ng);
     }
+
+    public static Vector3 LLRToPoint(LatLongRad latlong)
+    {
+        Vector3 ret = new Vector3();
+        //r is the radius of a circle cut through the globe at y.
+        float r = Cos(latlong.latitude);
+        ret.x = Sin(latlong.longitude) * r;
+        ret.y = Sin(latlong.latitude);
+        ret.z = -Cos(latlong.longitude) * r;
+        return ret;
+    }
 }
