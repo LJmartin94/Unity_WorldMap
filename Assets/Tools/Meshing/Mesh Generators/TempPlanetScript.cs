@@ -20,9 +20,7 @@ public class TempPlanetScript : MonoBehaviour
     void Initialise()
     {
         if (meshFilters == null || meshFilters.Length == 0)
-        { 
             meshFilters = new MeshFilter[6];
-        }
 
         Material defaultMat = new Material(Shader.Find("Standard"));
         for (int i=0; i<6; i++)

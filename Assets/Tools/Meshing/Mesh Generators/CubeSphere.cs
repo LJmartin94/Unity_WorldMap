@@ -41,14 +41,14 @@ public static class CubeSphere
 		int[] triangles = new int[numTris];
 		int triIndex = 0;
 
-		//Vector4[] uvs = new Vector4[numVerts];
-		//Vector3[] normals = new Vector3[numVerts];
+        //Vector4[] uvs = new Vector4[numVerts];
+        //Vector3[] normals = new Vector3[numVerts];
 
-		//float ty = startT.y;
-		//float dx = (endT.x - startT.x) / (resolution - 1);
-		//float dy = (endT.y - startT.y) / (resolution - 1);
+        //float ty = startT.y;
+        //float dx = (endT.x - startT.x) / (resolution - 1);
+        //float dy = (endT.y - startT.y) / (resolution - 1);
 
-		int vertexIndex = 0;
+        int vertexIndex = 0;
 		for (int y = 0; y < resolution; y++)
 		{
 			//float tx = startT.x;
