@@ -55,7 +55,7 @@ public static class CubeSphere
 			for (int x = 0; x < resolution; x++)
 			{
 				//uv-mapping: keeps track of what 'percentage done' the loop is between 0 and 1.
-				Vector2 uv = new Vector2(x / (resolution - 1f), y / (resolution - 1f));
+				Vector2 uv = new Vector2(x,y) / (resolution - 1f);
 				
 				// We move 1 unit along localUp (normal) to get from centre of cube to the face we want.
 				// Then we translate uv from a val between 0 and 1 to a value between -1 and 1,
