@@ -61,10 +61,8 @@ public static class CubeSphere
 				// Then we translate uv from a val between 0 and 1 to a value between -1 and 1,
 				// and multiply it by its local x y equivalents.
 				Vector3 pointOnUnitCube = normal + axisA * (2 * uv.x - 1) + axisB * (2 * uv.y - 1);
-				
-				vertices[vertexIndex] = pointOnUnitCube;
 
-                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+				Vector3 pointOnUnitSphere = CubeToSpherePoint(pointOnUnitCube);
                 vertices[vertexIndex] = pointOnUnitSphere;
 
                 //Vector3 pointOnUnitSphere = CubePointToSpherePoint(pointOnUnitCube);
@@ -93,4 +91,14 @@ public static class CubeSphere
 		SimpleMeshData ret = new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
 		return ret; 
 	}
+
+	public static Vector3 CubeToSpherePoint(Vector3 cubePoint)
+    {
+		Vector3 ret;
+
+		//Simple way of converting cube to sphere:
+		//divide vector by its own length, so all points are 1 unit away from centre.
+		ret = cubePoint.normalized; 
+		return ret;
+    }
 }
