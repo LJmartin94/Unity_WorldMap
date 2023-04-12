@@ -64,13 +64,15 @@ public static class CubeSphere
 				int vertexIndex = x + y * resolution;
 				vertices[vertexIndex] = pointOnUnitCube;
 
-				//Vector3 pointOnUnitSphere = CubePointToSpherePoint(pointOnUnitCube);
+                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+                vertices[vertexIndex] = pointOnUnitSphere;
 
-				//vertices[vertexIndex] = pointOnUnitSphere * radius;
-				//normals[vertexIndex] = pointOnUnitSphere;
-				//uvs[vertexIndex] = uv;
+                //Vector3 pointOnUnitSphere = CubePointToSpherePoint(pointOnUnitCube);
+                //vertices[vertexIndex] = pointOnUnitSphere * radius;
+                //normals[vertexIndex] = pointOnUnitSphere;
+                //uvs[vertexIndex] = uv;
 
-				if (x != resolution - 1 && y != resolution - 1)
+                if (x != resolution - 1 && y != resolution - 1)
 				{
 					//Stores all three points of each of the
 					//two triangles in a square, in clockwise order.
