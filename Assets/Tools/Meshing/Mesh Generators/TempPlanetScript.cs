@@ -37,16 +37,11 @@ public class TempPlanetScript : MonoBehaviour
                 meshFilters[i].sharedMesh = new Mesh();
             }
         }
-        terrainFaces = new CubeSphereObject(meshFilters, resolution);
+        terrainFaces = new CubeSphereObject(meshFilters);
     }
 
     void GenerateMesh()
     {
-        //foreach (ImportedTerrainFace face in terrainFaces)
-        //{
-        //    face.ConstructMesh();
-        //}
-
         terrainFaces.ConstructMesh(resolution);
     }
 }
