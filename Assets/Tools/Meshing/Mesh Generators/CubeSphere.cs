@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static System.Math;
 
 
 
@@ -96,9 +97,19 @@ public static class CubeSphere
     {
 		Vector3 ret;
 
-		//Simple way of converting cube to sphere:
-		//divide vector by its own length, so all points are 1 unit away from centre.
-		ret = cubePoint.normalized; 
-		return ret;
+        ////Simple way of converting cube to sphere:
+        ////divide vector by its own length, so all points are 1 unit away from centre.
+        //ret = cubePoint.normalized;
+
+        // Using method at: http://mathproofs.blogspot.com/2005/07/mapping-cube-to-sphere.html
+		// This makes points closer to the cube's seems a little less clustered.
+        float x2 = cubePoint.x * cubePoint.x;
+        float y2 = cubePoint.y * cubePoint.y;
+        float z2 = cubePoint.z * cubePoint.z;
+
+        ret.x = cubePoint.x * (float)Sqrt(1 - (y2 + z2) / 2 + (y2 * z2) / 3);
+        ret.y = cubePoint.y * (float)Sqrt(1 - (x2 + z2) / 2 + (x2 * z2) / 3);
+        ret.z = cubePoint.z * (float)Sqrt(1 - (x2 + y2) / 2 + (x2 * y2) / 3);
+        return ret;
     }
 }
