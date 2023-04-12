@@ -20,6 +20,11 @@ public struct LatLongDegr //stored in degrees
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    public LatLongRad ConvertToRad()
+    {
+        return new LatLongRad(latitude * Deg2Rad, longitude * Deg2Rad);
+    }
 }
 
 // Remember:
@@ -41,5 +46,10 @@ public struct LatLongRad //stored in radians
     {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public LatLongDegr ConvertToDegr()
+    {
+        return new LatLongDegr(latitude * Rad2Deg, longitude * Rad2Deg);
     }
 }
