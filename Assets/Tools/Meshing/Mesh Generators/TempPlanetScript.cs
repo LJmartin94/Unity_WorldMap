@@ -9,7 +9,7 @@ public class TempPlanetScript : MonoBehaviour
 
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
-    SimpleMeshData[] terrainFaces;
+    CubeSphereObject terrainFaces;
 
     private void OnValidate()
     {
@@ -20,10 +20,10 @@ public class TempPlanetScript : MonoBehaviour
     void Initialise()
     {
         if (meshFilters == null || meshFilters.Length == 0)
+        { 
             meshFilters = new MeshFilter[6];
+        }
 
-        terrainFaces = new SimpleMeshData[6];
-        
         Material defaultMat = new Material(Shader.Find("Standard"));
         for (int i=0; i<6; i++)
         {
@@ -37,11 +37,16 @@ public class TempPlanetScript : MonoBehaviour
                 meshFilters[i].sharedMesh = new Mesh();
             }
         }
-        terrainFaces = CubeSphere.GenerateFaces(resolution);
+        terrainFaces = new CubeSphereObject(meshFilters, resolution);
     }
 
     void GenerateMesh()
     {
-        CubeSphere.GenerateFaces(resolution);
+        //foreach (ImportedTerrainFace face in terrainFaces)
+        //{
+        //    face.ConstructMesh();
+        //}
+
+        terrainFaces.ConstructMesh(resolution);
     }
 }
