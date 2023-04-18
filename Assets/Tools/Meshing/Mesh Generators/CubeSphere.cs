@@ -64,7 +64,7 @@ public static class CubeSphere
 				Vector3 pointOnUnitCube = normal + axisA * (2 * uv.x - 1) + axisB * (2 * uv.y - 1);
 
 				Vector3 pointOnUnitSphere = CubeToSpherePoint(pointOnUnitCube);
-                vertices[vertexIndex] = pointOnUnitSphere;
+				vertices[vertexIndex] = pointOnUnitSphere;
                 //vertices[vertexIndex] = pointOnUnitSphere * radius;
                 //normals[vertexIndex] = pointOnUnitSphere;
                 //uvs[vertexIndex] = uv;
