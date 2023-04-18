@@ -10,6 +10,7 @@ public class TempPlanetScript : MonoBehaviour
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
     CubeSphereObject terrainFaces;
+    [SerializeField] Texture2D heightMap;
 
     private void OnValidate()
     {
@@ -40,6 +41,6 @@ public class TempPlanetScript : MonoBehaviour
 
     void GenerateMesh()
     {
-        terrainFaces.ConstructMesh(resolution);
+        terrainFaces.ConstructMesh(resolution, heightMap);
     }
 }
