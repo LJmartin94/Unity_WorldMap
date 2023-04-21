@@ -7,7 +7,10 @@ using static UnityEngine.Mathf;
 
 public static class CubeSphere
 {
-	public static SimpleMeshData[] GenerateFaces(int resolution, int divisions = 1, float radius = 1)
+	//Resolution = number of vertex-points per axis of a (sub)face (e.g. simplest cube == 2)
+	//Divisions = number of times a face on the cube is divided (e.g. for 6 faced 'regular' cube == 0 divisions but for 2x2 subfaces per face == 1 division).
+	//Radius = how much to inflate the unit sphere by.
+	public static SimpleMeshData[] GenerateFaces(int resolution, int divisions = 0, float radius = 1)
 	{
 		//divisions are cuts per axis. 0 means whole. 1 means halved lengthways and width ways.
 		int subfaces = (divisions + 1) * (divisions + 1);	// 1,   4,   9,  16...
@@ -24,20 +27,22 @@ public static class CubeSphere
 			Vector3.back
 		};
 
-		for (int f = 0; f < cubeFaces.Length; f++)
+		for (int f = 0; f < cubeFaces.Length; f++) // all main faces
 		{
-			for (int y = 0; y < (divisions + 1); y++)
+			for (int y = 0; y < (divisions + 1); y++) //all subfaces along y
             {
-				for (int x = 0; x < (divisions + 1); x++)
+				for (int x = 0; x < (divisions + 1); x++) //all subfaces along x
 				{
-					all[m] = CreateFace(cubeFaces[f], resolution);
+					Vector2 sfStart = new Vector2(x, y) * axisFraction;
+					Vector2 sfEnd = new Vector2(x + 1, y + 1) * axisFraction;
+					all[m] = CreateFace(cubeFaces[f], resolution, sfStart, sfEnd, radius);
 					m++;
 				}
 			}
 		}
 		return all;
 	}
-	static SimpleMeshData CreateFace(Vector3 normal, int resolution) //Vector2 startT, Vector2 endT, float radius)
+	static SimpleMeshData CreateFace(Vector3 normal, int resolution, Vector2 start, Vector2 end, float radius)
 	{
 		// For every face of e.g. a cube, axisA & B are the dimensions
 		// that express the width and length of a plane with that facing. 
@@ -56,27 +61,27 @@ public static class CubeSphere
         //Vector4[] uvs = new Vector4[numVerts];
         //Vector3[] normals = new Vector3[numVerts];
 
-        //float ty = startT.y;
-        //float dx = (endT.x - startT.x) / (resolution - 1);
-        //float dy = (endT.y - startT.y) / (resolution - 1);
-
         int vertexIndex = 0;
 		for (int y = 0; y < resolution; y++)
 		{
-			//float tx = startT.x;
 			for (int x = 0; x < resolution; x++)
 			{
-				//uv-mapping: keeps track of what 'percentage done' the loop is between 0 and 1.
-				Vector2 uv = new Vector2(x,y) / (resolution - 1f);
-				
+                //uv-mapping: keeps track of what 'percentage done' the loop is between 0 and 1.
+                Vector2 uv = new Vector2(x, y) / (resolution - 1f);
+
+                //when dealing with subfaces:
+                //take start as offset.
+                //take end - start as distance to cover
+                //multiply this by old uv as 'percentage done'
+				uv = start + (end - start) * uv;
+
 				// We move 1 unit along localUp (normal) to get from centre of cube to the face we want.
 				// Then we translate uv from a val between 0 and 1 to a value between -1 and 1,
 				// and multiply it by its local x y equivalents.
 				Vector3 pointOnUnitCube = normal + axisA * (2 * uv.x - 1) + axisB * (2 * uv.y - 1);
 
 				Vector3 pointOnUnitSphere = CubeToSpherePoint(pointOnUnitCube);
-				vertices[vertexIndex] = pointOnUnitSphere;
-                //vertices[vertexIndex] = pointOnUnitSphere * radius;
+                vertices[vertexIndex] = pointOnUnitSphere * radius;
                 //normals[vertexIndex] = pointOnUnitSphere;
                 //uvs[vertexIndex] = uv;
 
@@ -93,10 +98,8 @@ public static class CubeSphere
 					triangles[triIndex + 5] = vertexIndex + resolution + 1;
 					triIndex += 6;
                 }
-                //tx += dx;
                 vertexIndex++;
             }
-			//ty += dy;
 		}
 		SimpleMeshData ret = new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
 		return ret; 
