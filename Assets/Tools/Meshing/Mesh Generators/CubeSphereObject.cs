@@ -16,8 +16,9 @@ public class CubeSphereObject
 
 	public void ConstructMesh(int resolution, Texture2D heightMap)
     {
+        int chunks = 6 * 4;
 		info = CubeSphere.GenerateFaces(resolution);
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < chunks; i++)
 		{
             mesh[i].sharedMesh.Clear();
             Vector3[] vertices = info[i].vertices;

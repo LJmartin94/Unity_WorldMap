@@ -7,9 +7,13 @@ using static UnityEngine.Mathf;
 
 public static class CubeSphere
 {
-	public static SimpleMeshData[] GenerateFaces(int resolution)
+	public static SimpleMeshData[] GenerateFaces(int resolution, int divisions = 1, float radius = 1)
 	{
-		SimpleMeshData[] all = new SimpleMeshData[6];
+		//divisions are cuts per axis. 0 means whole. 1 means halved lengthways and width ways.
+		int subfaces = (divisions + 1) * (divisions + 1);	// 1,   4,   9,  16...
+		float axisFraction = 1f / (divisions + 1);			// 1, 1/2, 1/3, 1/4...
+		SimpleMeshData[] all = new SimpleMeshData[6 * subfaces];
+		int m = 0; //mesh index
 		Vector3[] cubeFaces =
 		{
 			Vector3.up,
@@ -20,9 +24,16 @@ public static class CubeSphere
 			Vector3.back
 		};
 
-		for (int i = 0; i < cubeFaces.Length; i++)
+		for (int f = 0; f < cubeFaces.Length; f++)
 		{
-			all[i] = CreateFace(cubeFaces[i], resolution);
+			for (int y = 0; y < (divisions + 1); y++)
+            {
+				for (int x = 0; x < (divisions + 1); x++)
+				{
+					all[m] = CreateFace(cubeFaces[f], resolution);
+					m++;
+				}
+			}
 		}
 		return all;
 	}

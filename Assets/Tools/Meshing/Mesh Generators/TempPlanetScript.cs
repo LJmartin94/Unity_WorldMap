@@ -20,11 +20,12 @@ public class TempPlanetScript : MonoBehaviour
 
     void Initialise()
     {
+        int chunks = 6 * 4;
         if (meshFilters == null || meshFilters.Length == 0)
-            meshFilters = new MeshFilter[6];
+            meshFilters = new MeshFilter[chunks];
 
         Material defaultMat = new Material(Shader.Find("Standard"));
-        for (int i=0; i<6; i++)
+        for (int i=0; i < chunks; i++)
         {
             if (meshFilters[i] == null)
             { 
