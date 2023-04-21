@@ -6,18 +6,20 @@ public class CubeSphereObject
 {
 	//Variables for CubeSphere as non static class
 	MeshFilter[] mesh;
+    int divisions;
     SimpleMeshData[] info;
 
 	//Constructor for non-static class
-	public CubeSphereObject(MeshFilter[] meshFilter)
+	public CubeSphereObject(MeshFilter[] meshFilter, int divs)
 	{
         mesh = meshFilter;
+        divisions = divs;
     }
 
 	public void ConstructMesh(int resolution, Texture2D heightMap)
     {
-        int chunks = 6 * 4;
-		info = CubeSphere.GenerateFaces(resolution);
+        int chunks = 6 * (divisions + 1) * (divisions + 1);
+		info = CubeSphere.GenerateFaces(resolution, divisions);
 		for (int i = 0; i < chunks; i++)
 		{
             mesh[i].sharedMesh.Clear();

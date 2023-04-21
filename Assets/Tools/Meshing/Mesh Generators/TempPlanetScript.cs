@@ -20,7 +20,8 @@ public class TempPlanetScript : MonoBehaviour
 
     void Initialise()
     {
-        int chunks = 6 * 4;
+        int divisions = 2;
+        int chunks = 6 * (divisions + 1) * (divisions + 1);
         if (meshFilters == null || meshFilters.Length == 0)
             meshFilters = new MeshFilter[chunks];
 
@@ -37,7 +38,7 @@ public class TempPlanetScript : MonoBehaviour
                 meshFilters[i].sharedMesh = new Mesh();
             }
         }
-        terrainFaces = new CubeSphereObject(meshFilters);
+        terrainFaces = new CubeSphereObject(meshFilters, divisions);
     }
 
     void GenerateMesh()
