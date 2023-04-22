@@ -20,7 +20,7 @@ public class TempPlanetScript : MonoBehaviour
 
     void Initialise()
     {
-        int divisions = 2;
+        int divisions = 1;
         int chunks = 6 * (divisions + 1) * (divisions + 1);
         if (meshFilters == null || meshFilters.Length == 0)
             meshFilters = new MeshFilter[chunks];

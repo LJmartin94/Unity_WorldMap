@@ -20,11 +20,11 @@ public static class CubeSphere
 		Vector3[] cubeFaces =
 		{
 			Vector3.up,
-			Vector3.down,
 			Vector3.left,
+			Vector3.back,
 			Vector3.right,
 			Vector3.forward,
-			Vector3.back
+			Vector3.down,
 		};
 
 		for (int f = 0; f < cubeFaces.Length; f++) // all main faces
@@ -58,8 +58,8 @@ public static class CubeSphere
 		int[] triangles = new int[numTris];
 		int triIndex = 0;
 
-        //Vector4[] uvs = new Vector4[numVerts];
-        //Vector3[] normals = new Vector3[numVerts];
+        Vector4[] uvs = new Vector4[numVerts];
+        Vector3[] normals = new Vector3[numVerts];
 
         int vertexIndex = 0;
 		for (int y = 0; y < resolution; y++)
@@ -68,6 +68,7 @@ public static class CubeSphere
 			{
                 //uv-mapping: keeps track of what 'percentage done' the loop is between 0 and 1.
                 Vector2 uv = new Vector2(x, y) / (resolution - 1f);
+                uvs[vertexIndex] = uv;
 
                 //when dealing with subfaces:
                 //take start as offset.
@@ -82,8 +83,7 @@ public static class CubeSphere
 
 				Vector3 pointOnUnitSphere = CubeToSpherePoint(pointOnUnitCube);
                 vertices[vertexIndex] = pointOnUnitSphere * radius;
-                //normals[vertexIndex] = pointOnUnitSphere;
-                //uvs[vertexIndex] = uv;
+                normals[vertexIndex] = pointOnUnitSphere;
 
                 if (x != resolution - 1 && y != resolution - 1)
                 {
@@ -101,7 +101,7 @@ public static class CubeSphere
                 vertexIndex++;
             }
 		}
-		SimpleMeshData ret = new SimpleMeshData(vertices, triangles); //, normals, uvs, "Sphere Cube Face");
+		SimpleMeshData ret = new SimpleMeshData(vertices, triangles, normals, uvs, "Sphere Cube Face");
 		return ret; 
 	}
 
@@ -114,7 +114,7 @@ public static class CubeSphere
         //ret = cubePoint.normalized;
 
         // Using method at: http://mathproofs.blogspot.com/2005/07/mapping-cube-to-sphere.html
-		// This makes points closer to the cube's seems a little less clustered.
+		// This makes points closer to the cube's seams a little less clustered.
         float x2 = cubePoint.x * cubePoint.x;
         float y2 = cubePoint.y * cubePoint.y;
         float z2 = cubePoint.z * cubePoint.z;
@@ -124,4 +124,53 @@ public static class CubeSphere
         ret.z = cubePoint.z * (float)Sqrt(1 - (x2 + y2) / 2 + (x2 * y2) / 3);
         return ret;
     }
+
+	//public static Vector3 SpherePointToCubePoint(Vector3 p)
+	//{
+	//	float absX = Mathf.Abs(p.x);
+	//	float absY = Mathf.Abs(p.y);
+	//	float absZ = Mathf.Abs(p.z);
+
+	//	if (absY >= absX && absY >= absZ)
+	//	{
+	//		return CubifyFace(p);
+	//	}
+	//	else if (absX >= absY && absX >= absZ)
+	//	{
+	//		p = CubifyFace(new Vector3(p.y, p.x, p.z));
+	//		return new Vector3(p.y, p.x, p.z);
+	//	}
+	//	else
+	//	{
+	//		p = CubifyFace(new Vector3(p.x, p.z, p.y));
+	//		return new Vector3(p.x, p.z, p.y);
+	//	}
+	//}
+
+	//// Thanks to http://petrocket.blogspot.com/2010/04/sphere-to-cube-mapping.html
+	//static Vector3 CubifyFace(Vector3 p)
+	//{
+	//	const float inverseSqrt2 = 0.70710676908493042f;
+
+	//	float a2 = p.x * p.x * 2.0f;
+	//	float b2 = p.z * p.z * 2.0f;
+	//	float inner = -a2 + b2 - 3;
+	//	float innersqrt = -Mathf.Sqrt((inner * inner) - 12.0f * a2);
+
+	//	if (p.x != 0)
+	//	{
+	//		p.x = Mathf.Min(1, Mathf.Sqrt(innersqrt + a2 - b2 + 3.0f) * inverseSqrt2) * Mathf.Sign(p.x);
+	//	}
+
+	//	if (p.z != 0)
+	//	{
+	//		p.z = Mathf.Min(1, Mathf.Sqrt(innersqrt - a2 + b2 + 3.0f) * inverseSqrt2) * Mathf.Sign(p.z);
+	//	}
+
+	//	// Top/bottom face
+	//	p.y = Mathf.Sign(p.y);
+
+	//	return p;
+	//}
+
 }
