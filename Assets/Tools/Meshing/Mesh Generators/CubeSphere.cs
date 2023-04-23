@@ -29,20 +29,22 @@ public static class CubeSphere
 
 		for (int f = 0; f < cubeFaces.Length; f++) // all main faces
 		{
+			int name = 0;
 			for (int y = 0; y < (divisions + 1); y++) //all subfaces along y
             {
 				for (int x = 0; x < (divisions + 1); x++) //all subfaces along x
 				{
 					Vector2 sfStart = new Vector2(x, y) * axisFraction;
 					Vector2 sfEnd = new Vector2(x + 1, y + 1) * axisFraction;
-					all[m] = CreateFace(cubeFaces[f], resolution, sfStart, sfEnd, radius);
+					all[m] = CreateFace(cubeFaces[f], resolution, sfStart, sfEnd, radius, name);
+					name++;
 					m++;
 				}
 			}
 		}
 		return all;
 	}
-	static SimpleMeshData CreateFace(Vector3 normal, int resolution, Vector2 start, Vector2 end, float radius)
+	static SimpleMeshData CreateFace(Vector3 normal, int resolution, Vector2 start, Vector2 end, float radius, int name)
 	{
 		// For every face of e.g. a cube, axisA & B are the dimensions
 		// that express the width and length of a plane with that facing. 
@@ -101,7 +103,21 @@ public static class CubeSphere
                 vertexIndex++;
             }
 		}
-		SimpleMeshData ret = new SimpleMeshData(vertices, triangles, normals, uvs, "Sphere Cube Face");
+		string chunk_name;
+		if (normal == Vector3.up)
+			chunk_name = "Chunk North-One ";
+		else if (normal == Vector3.left)
+			chunk_name = "Chunk West-Two ";
+		else if (normal == Vector3.back)
+			chunk_name = "Chunk Prime-Three ";
+		else if (normal == Vector3.right)
+			chunk_name = "Chunk East-Five ";
+		else if (normal == Vector3.forward)
+			chunk_name = "Chunk Ante-Four ";
+		else
+			chunk_name = "Chunk South-Six ";
+		chunk_name += name.ToString();
+		SimpleMeshData ret = new SimpleMeshData(vertices, triangles, normals, uvs, chunk_name);
 		return ret; 
 	}
 
