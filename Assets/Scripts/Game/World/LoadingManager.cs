@@ -40,6 +40,12 @@ public class LoadingManager : MonoBehaviour
 
     void Load()
     {
-        LoadTask[] tasks;
+        LoadTask[] tasks = GetTasks();
+    }
+
+    public LoadTask[] GetTasks()
+    {
+        List<LoadTask> taskList = new List<LoadTask>();
+        return taskList.ToArray();
     }
 }
