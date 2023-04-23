@@ -6,6 +6,7 @@ using TerrainGeneration;
 public class LoadingManager : MonoBehaviour
 {
     public bool logTaskLoadTimes;
+    public bool logTotalLoadTime;
 
     [Header("References")]
     //public LoadScreen loadingScreen;
@@ -54,6 +55,10 @@ public class LoadingManager : MonoBehaviour
 
     void Load()
     {
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        if (logTotalLoadTime)
+            sw.Start();
+        
         LoadTask[] tasks = GetTasks();
 
         foreach (LoadTask task in tasks)
@@ -62,6 +67,9 @@ public class LoadingManager : MonoBehaviour
             if (logTaskLoadTimes)
                 Debug.Log($"{task.taskName} took {time} ms to complete.");
         }
+
+        if (logTotalLoadTime)
+            Debug.Log($"Total loading duration in ms: {sw.ElapsedMilliseconds}");
     }
 
     public LoadTask[] GetTasks()
