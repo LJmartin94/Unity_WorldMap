@@ -7,8 +7,15 @@ public class LoadingManager : MonoBehaviour
 {
     [Header("References")]
     //public LoadScreen loadingScreen;
-    public MeshLoader oceanLoader;
+    //public TerrainHeightProcessor heightProcessor;
+    //public CityLights cityLights;
+    //public Light sunLight;
+    //public WorldLookup worldLookup;
+    //public GlobeMapLoader globeMapLoader;
 
+    //public LodMeshLoader terrainLoader;
+    public MeshLoader oceanLoader;
+    //public MeshLoader countryOutlineLoader;
 
     //Task class
     public class LoadTask
