@@ -20,6 +20,8 @@ public class LoadingManager : MonoBehaviour
     public MeshLoader oceanLoader;
     //public MeshLoader countryOutlineLoader;
 
+    public GameObject[] deactivateWhileLoading;
+
     //unused?:
     //public Player player;
     //public TerrainHeightSettings heightSettings;
@@ -95,12 +97,22 @@ public class LoadingManager : MonoBehaviour
 
     void OnLoadStart()
     {
-
+        /*Display loading screen and disable other objects.*/
+        foreach (GameObject obj in deactivateWhileLoading)
+            obj.SetActive(false);
+        //loadingScreen.gameObject.SetActive(true);
+        //loadingScreen.Init();
     }
 
     void OnLoadFinish()
     {
+        /*Memory management*/
+        //heightProcessor.Release();
+        Resources.UnloadUnusedAssets();
 
+        foreach (GameObject obj in deactivateWhileLoading)
+            obj.SetActive(true);
+        //loadingScreen.Close();
     }
 
 }
