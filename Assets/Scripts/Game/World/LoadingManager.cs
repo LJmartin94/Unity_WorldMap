@@ -51,10 +51,17 @@ public class LoadingManager : MonoBehaviour
         {
             taskList.Add(new LoadTask(task, name));
         }
-        
+
         //Tasks go here:
-        //AddTask();
-        
+
+        //	AddTasks(() => heightProcessor.ProcessHeightMap(), "Processing Height Map");
+        //	AddTasks(() => cityLights.Init(heightProcessor.processedHeightMap, sunLight), "Creating City Lights");
+        //	AddTasks(() => worldLookup.Init(heightProcessor.processedHeightMap), "Initializing World Lookup");
+        //	AddTasks(() => globeMapLoader.Load(), "Loading Globe (map)");
+        //	AddTasks(() => terrainLoader.Load(), "Loading Terrain Mesh");
+        AddTasks(() => oceanLoader.Load(), "Loading Ocean Mesh");
+        //	AddTasks(() => countryOutlineLoader.Load(), "Loading Country Outlines");
+
         return taskList.ToArray();
     }
 }

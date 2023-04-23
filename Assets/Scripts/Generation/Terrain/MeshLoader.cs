@@ -6,6 +6,9 @@ namespace TerrainGeneration
 {
 	public class MeshLoader : MonoBehaviour
 	{
-		
+		public void Load()
+        {
+			return;
+        }
 	}
 }
