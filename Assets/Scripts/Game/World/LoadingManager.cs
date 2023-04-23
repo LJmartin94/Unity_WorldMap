@@ -20,6 +20,20 @@ public class LoadingManager : MonoBehaviour
             this.task = task;
             this.taskName = name;
         }
+
+        public long Execute(bool log = false /*, LoadScreen loadScreen*/)
+        {
+            if (log)
+            {
+                //loadScreen.Log(taskName, newLine: true);
+                var sw = System.Diagnostics.Stopwatch.StartNew();
+                task.Invoke();
+                //loadScreen.Log($" {sw.ElapsedMilliseconds}ms.", newLine: false);
+                return sw.ElapsedMilliseconds;
+            }
+            task.Invoke();
+            return 0;
+        }
     }
 
 
