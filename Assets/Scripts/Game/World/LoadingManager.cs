@@ -17,6 +17,11 @@ public class LoadingManager : MonoBehaviour
     public MeshLoader oceanLoader;
     //public MeshLoader countryOutlineLoader;
 
+    //unused?:
+    //public Player player;
+    //public TerrainHeightSettings heightSettings;
+    //public AtmosphereEffect atmosphereEffect;
+
     //Task class
     public class LoadTask
     {
