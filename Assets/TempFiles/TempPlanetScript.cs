@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class TempPlanetScript : MonoBehaviour
 {
     [Range(2, 256)]
-    public int resolution = 10;
+    public int resolution = 70;
 
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
     CubeSphereObject terrainFaces;
     [SerializeField] Texture2D heightMap;
+    
 
     private void OnValidate()
     {
@@ -20,7 +22,7 @@ public class TempPlanetScript : MonoBehaviour
 
     void Initialise()
     {
-        int divisions = 1;
+        int divisions = 4;
         int chunks = 6 * (divisions + 1) * (divisions + 1);
         if (meshFilters == null || meshFilters.Length == 0)
             meshFilters = new MeshFilter[chunks];
@@ -43,6 +45,7 @@ public class TempPlanetScript : MonoBehaviour
 
     void GenerateMesh()
     {
-        terrainFaces.ConstructMesh(resolution, heightMap);
+        byte[] serialisedMeshes = terrainFaces.ConstructMesh(resolution, heightMap);
+        File.WriteAllBytes("./Assets/TempFiles/myMeshes.bytes", serialisedMeshes);
     }
 }
