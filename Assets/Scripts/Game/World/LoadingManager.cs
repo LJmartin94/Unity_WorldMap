@@ -5,5 +5,32 @@ using TerrainGeneration;
 
 public class LoadingManager : MonoBehaviour
 {
+    [Header("References")]
+    public MeshLoader oceanLoader;
 
+    //Task class
+    public class LoadTask
+    {
+        public System.Action task;
+        public string taskName;
+
+        //Constructor
+        public LoadTask(System.Action task, string name)
+        {
+            this.task = task;
+            this.taskName = name;
+        }
+    }
+
+
+    //Set this to be called before all others in script execution order settings
+    void Awake()
+    {
+        Load();
+    }
+
+    void Load()
+    {
+        LoadTask[] tasks;
+    }
 }
