@@ -6,7 +6,9 @@ using TerrainGeneration;
 public class LoadingManager : MonoBehaviour
 {
     [Header("References")]
+    //public LoadScreen loadingScreen;
     public MeshLoader oceanLoader;
+
 
     //Task class
     public class LoadTask
@@ -21,14 +23,14 @@ public class LoadingManager : MonoBehaviour
             this.taskName = name;
         }
 
-        public long Execute(bool log = false /*, LoadScreen loadScreen*/)
+        public long Execute(bool log = false /*, LoadScreen loadingScreen*/)
         {
             if (log)
             {
-                //loadScreen.Log(taskName, newLine: true);
+                //loadingScreen.Log(taskName, newLine: true);
                 var sw = System.Diagnostics.Stopwatch.StartNew();
                 task.Invoke();
-                //loadScreen.Log($" {sw.ElapsedMilliseconds}ms.", newLine: false);
+                //loadingScreen.Log($" {sw.ElapsedMilliseconds}ms.", newLine: false);
                 return sw.ElapsedMilliseconds;
             }
             task.Invoke();
