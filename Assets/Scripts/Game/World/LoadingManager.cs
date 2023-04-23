@@ -5,6 +5,8 @@ using TerrainGeneration;
 
 public class LoadingManager : MonoBehaviour
 {
+    public bool logTaskLoadTimes;
+
     [Header("References")]
     //public LoadScreen loadingScreen;
     //public TerrainHeightProcessor heightProcessor;
@@ -53,6 +55,13 @@ public class LoadingManager : MonoBehaviour
     void Load()
     {
         LoadTask[] tasks = GetTasks();
+
+        foreach (LoadTask task in tasks)
+        {
+            long time = task.Execute();
+            if (logTaskLoadTimes)
+                Debug.Log($"{task.taskName} took {time} ms to complete.");
+        }
     }
 
     public LoadTask[] GetTasks()
