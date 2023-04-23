@@ -46,6 +46,15 @@ public class LoadingManager : MonoBehaviour
     public LoadTask[] GetTasks()
     {
         List<LoadTask> taskList = new List<LoadTask>();
+
+        void AddTasks(System.Action task, string name)
+        {
+            taskList.Add(new LoadTask(task, name));
+        }
+        
+        //Tasks go here:
+        //AddTask();
+        
         return taskList.ToArray();
     }
 }
