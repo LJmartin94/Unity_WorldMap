@@ -46,134 +46,134 @@ public class SimpleMeshData
         this.name = name;
     }
 
-	//public Mesh ToMesh()
-	//{
-	//	return MeshHelper.CreateMesh(this);
-	//}
+    //public Mesh ToMesh()
+    //{
+    //	return MeshHelper.CreateMesh(this);
+    //}
 
-	//public void ToMesh(ref Mesh mesh)
-	//{
-	//	MeshHelper.CreateMesh(ref mesh, this, false);
-	//}
+    //public void ToMesh(ref Mesh mesh)
+    //{
+    //	MeshHelper.CreateMesh(ref mesh, this, false);
+    //}
 
-	//public byte[] ToBytes()
-	//{
-	//	return MeshSerializer.MeshToBytes(this);
-	//}
+    //public byte[] ToBytes()
+    //{
+    //    return MeshSerialiser.MeshToBytes(this);
+    //}
 
-	//public static SimpleMeshData FromBytes(byte[] bytes)
-	//{
-	//	return MeshSerializer.BytesToMesh(bytes);
-	//}
+    //public static SimpleMeshData FromBytes(byte[] bytes)
+    //{
+    //	return MeshSerializer.BytesToMesh(bytes);
+    //}
 
-	///// <summary>
-	///// Reorders the vertex and triangle lists for increased rendering efficiency. Also removes redundant (i.e. unindexed) vertices.
-	///// </summary>
-	//public void Optimize()
-	//{
-	//	Mesh mesh = ToMesh();
-	//	mesh.Optimize();
-	//	// Store optimized mesh data
-	//	vertices = mesh.vertices;
-	//	triangles = mesh.triangles;
-	//	normals = mesh.normals;
-	//	var reorderedUVs = new System.Collections.Generic.List<Vector4>();
-	//	mesh.GetUVs(0, reorderedUVs);
-	//	texCoords = reorderedUVs.ToArray();
-	//}
+    ///// <summary>
+    ///// Reorders the vertex and triangle lists for increased rendering efficiency. Also removes redundant (i.e. unindexed) vertices.
+    ///// </summary>
+    //public void Optimise()
+    //{
+    //	Mesh mesh = ToMesh();
+    //	mesh.Optimize();
+    //	// Store optimized mesh data
+    //	vertices = mesh.vertices;
+    //	triangles = mesh.triangles;
+    //	normals = mesh.normals;
+    //	var reorderedUVs = new System.Collections.Generic.List<Vector4>();
+    //	mesh.GetUVs(0, reorderedUVs);
+    //	texCoords = reorderedUVs.ToArray();
+    //}
 
-	///// <summary>
-	///// Removes the specified vertex from the mesh.
-	///// Note! this doesn't technically remove the vertex; rather it removes any triangles that reference that vertex.
-	///// As such, it's highly recommended to make a call to the Optimize function before using the mesh, to get rid of the redundant vertices.
-	///// </summary>
-	//public void RemoveVertex(int vertexIndex)
-	//{
-	//	List<int> newTriangles = new List<int>(capacity: triangles.Length);
-	//	int numTriangles = triangles.Length / 3;
+    ///// <summary>
+    ///// Removes the specified vertex from the mesh.
+    ///// Note! this doesn't technically remove the vertex; rather it removes any triangles that reference that vertex.
+    ///// As such, it's highly recommended to make a call to the Optimize function before using the mesh, to get rid of the redundant vertices.
+    ///// </summary>
+    //public void RemoveVertex(int vertexIndex)
+    //{
+    //	List<int> newTriangles = new List<int>(capacity: triangles.Length);
+    //	int numTriangles = triangles.Length / 3;
 
-	//	for (int i = 0; i < numTriangles; i++)
-	//	{
-	//		int a = triangles[i * 3 + 0];
-	//		int b = triangles[i * 3 + 1];
-	//		int c = triangles[i * 3 + 2];
-	//		if (a != vertexIndex && b != vertexIndex && c != vertexIndex)
-	//		{
-	//			newTriangles.Add(a);
-	//			newTriangles.Add(b);
-	//			newTriangles.Add(c);
-	//		}
-	//	}
+    //	for (int i = 0; i < numTriangles; i++)
+    //	{
+    //		int a = triangles[i * 3 + 0];
+    //		int b = triangles[i * 3 + 1];
+    //		int c = triangles[i * 3 + 2];
+    //		if (a != vertexIndex && b != vertexIndex && c != vertexIndex)
+    //		{
+    //			newTriangles.Add(a);
+    //			newTriangles.Add(b);
+    //			newTriangles.Add(c);
+    //		}
+    //	}
 
-	//	triangles = newTriangles.ToArray();
-	//}
+    //	triangles = newTriangles.ToArray();
+    //}
 
-	//public void RecalculateNormals()
-	//{
-	//	Mesh mesh = ToMesh();
-	//	mesh.RecalculateNormals();
-	//	this.normals = mesh.normals;
-	//}
+    //public void RecalculateNormals()
+    //{
+    //	Mesh mesh = ToMesh();
+    //	mesh.RecalculateNormals();
+    //	this.normals = mesh.normals;
+    //}
 
-	///// <summary>
-	///// Combines the data of another mesh into this mesh data
-	///// </summary>
-	//public void Combine(SimpleMeshData other)
-	//{
-	//	SimpleMeshData combinedMesh = Combine(this, other);
-	//	this.vertices = combinedMesh.vertices;
-	//	this.triangles = combinedMesh.triangles;
-	//	this.normals = combinedMesh.normals;
-	//	this.texCoords = combinedMesh.texCoords;
-	//}
+    ///// <summary>
+    ///// Combines the data of another mesh into this mesh data
+    ///// </summary>
+    //public void Combine(SimpleMeshData other)
+    //{
+    //	SimpleMeshData combinedMesh = Combine(this, other);
+    //	this.vertices = combinedMesh.vertices;
+    //	this.triangles = combinedMesh.triangles;
+    //	this.normals = combinedMesh.normals;
+    //	this.texCoords = combinedMesh.texCoords;
+    //}
 
-	///// <summary>
-	///// Combine the data of two simple meshes into one
-	///// </summary>
-	//public static SimpleMeshData Combine(SimpleMeshData a, SimpleMeshData b, string newName = "Combined Mesh")
-	//{
-	//	Vector3[] combinedVertices = CombineArrays(a.vertices, b.vertices);
-	//	int[] combinedTriangles = new int[a.triangles.Length + b.triangles.Length];
+    ///// <summary>
+    ///// Combine the data of two simple meshes into one
+    ///// </summary>
+    //public static SimpleMeshData Combine(SimpleMeshData a, SimpleMeshData b, string newName = "Combined Mesh")
+    //{
+    //	Vector3[] combinedVertices = CombineArrays(a.vertices, b.vertices);
+    //	int[] combinedTriangles = new int[a.triangles.Length + b.triangles.Length];
 
-	//	System.Array.Copy(a.triangles, combinedTriangles, a.triangles.Length);
-	//	for (int i = 0; i < b.triangles.Length; i++)
-	//	{
-	//		combinedTriangles[i + a.triangles.Length] = b.triangles[i] + a.vertices.Length;
-	//	}
+    //	System.Array.Copy(a.triangles, combinedTriangles, a.triangles.Length);
+    //	for (int i = 0; i < b.triangles.Length; i++)
+    //	{
+    //		combinedTriangles[i + a.triangles.Length] = b.triangles[i] + a.vertices.Length;
+    //	}
 
-	//	Vector3[] combinedNormals = CombineArraysEnforceLength(a.normals, b.normals, combinedVertices.Length);
-	//	Vector4[] combinedTexCoords = CombineArraysEnforceLength(a.texCoords, b.texCoords, combinedVertices.Length);
+    //	Vector3[] combinedNormals = CombineArraysEnforceLength(a.normals, b.normals, combinedVertices.Length);
+    //	Vector4[] combinedTexCoords = CombineArraysEnforceLength(a.texCoords, b.texCoords, combinedVertices.Length);
 
-	//	return new SimpleMeshData(combinedVertices, combinedTriangles, combinedNormals, combinedTexCoords, newName);
+    //	return new SimpleMeshData(combinedVertices, combinedTriangles, combinedNormals, combinedTexCoords, newName);
 
-	//	T[] CombineArraysEnforceLength<T>(T[] arrayA, T[] arrayB, int length)
-	//	{
-	//		// If both arrays are empty, then return empty array
-	//		if (arrayA.Length == 0 && arrayB.Length == 0)
-	//		{
-	//			return new T[0];
-	//		}
-	//		// If only one array is empty, then pad the other with zeros
-	//		else
-	//		{
-	//			if (arrayA.Length == 0)
-	//			{
-	//				arrayA = new T[length - arrayB.Length];
-	//			}
-	//			else if (arrayB.Length == 0)
-	//			{
-	//				arrayB = new T[length - arrayA.Length];
-	//			}
-	//		}
-	//		return CombineArrays(arrayA, arrayB);
-	//	}
+    //	T[] CombineArraysEnforceLength<T>(T[] arrayA, T[] arrayB, int length)
+    //	{
+    //		// If both arrays are empty, then return empty array
+    //		if (arrayA.Length == 0 && arrayB.Length == 0)
+    //		{
+    //			return new T[0];
+    //		}
+    //		// If only one array is empty, then pad the other with zeros
+    //		else
+    //		{
+    //			if (arrayA.Length == 0)
+    //			{
+    //				arrayA = new T[length - arrayB.Length];
+    //			}
+    //			else if (arrayB.Length == 0)
+    //			{
+    //				arrayB = new T[length - arrayA.Length];
+    //			}
+    //		}
+    //		return CombineArrays(arrayA, arrayB);
+    //	}
 
-	//	T[] CombineArrays<T>(T[] arrayA, T[] arrayB)
-	//	{
-	//		T[] combinedArray = new T[arrayA.Length + arrayB.Length];
-	//		System.Array.Copy(arrayA, 0, combinedArray, 0, arrayA.Length);
-	//		System.Array.Copy(arrayB, 0, combinedArray, arrayA.Length, arrayB.Length);
-	//		return combinedArray;
-	//	}
-	//}
+    //	T[] CombineArrays<T>(T[] arrayA, T[] arrayB)
+    //	{
+    //		T[] combinedArray = new T[arrayA.Length + arrayB.Length];
+    //		System.Array.Copy(arrayA, 0, combinedArray, 0, arrayA.Length);
+    //		System.Array.Copy(arrayB, 0, combinedArray, arrayA.Length, arrayB.Length);
+    //		return combinedArray;
+    //	}
+    //}
 }
