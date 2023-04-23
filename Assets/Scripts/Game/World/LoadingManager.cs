@@ -58,15 +58,16 @@ public class LoadingManager : MonoBehaviour
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
         if (logTotalLoadTime)
             sw.Start();
-        
-        LoadTask[] tasks = GetTasks();
 
+        OnLoadStart();
+        LoadTask[] tasks = GetTasks();
         foreach (LoadTask task in tasks)
         {
             long time = task.Execute();
             if (logTaskLoadTimes)
                 Debug.Log($"{task.taskName} took {time} ms to complete.");
         }
+        OnLoadFinish();
 
         if (logTotalLoadTime)
             Debug.Log($"Total loading duration in ms: {sw.ElapsedMilliseconds}");
@@ -81,8 +82,7 @@ public class LoadingManager : MonoBehaviour
             taskList.Add(new LoadTask(task, name));
         }
 
-        //Tasks go here:
-
+        /*Tasks go here:*/
         //	AddTasks(() => heightProcessor.ProcessHeightMap(), "Processing Height Map");
         //	AddTasks(() => cityLights.Init(heightProcessor.processedHeightMap, sunLight), "Creating City Lights");
         //	AddTasks(() => worldLookup.Init(heightProcessor.processedHeightMap), "Initializing World Lookup");
@@ -90,7 +90,17 @@ public class LoadingManager : MonoBehaviour
         //	AddTasks(() => terrainLoader.Load(), "Loading Terrain Mesh");
         AddTasks(() => oceanLoader.Load(), "Loading Ocean Mesh");
         //	AddTasks(() => countryOutlineLoader.Load(), "Loading Country Outlines");
-
         return taskList.ToArray();
     }
+
+    void OnLoadStart()
+    {
+
+    }
+
+    void OnLoadFinish()
+    {
+
+    }
+
 }
