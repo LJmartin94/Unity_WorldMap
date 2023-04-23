@@ -23,18 +23,11 @@ public class LoadingManager : MonoBehaviour
             this.taskName = name;
         }
 
-        public long Execute(bool log = false /*, LoadScreen loadingScreen*/)
+        public long Execute()
         {
-            if (log)
-            {
-                //loadingScreen.Log(taskName, newLine: true);
-                var sw = System.Diagnostics.Stopwatch.StartNew();
-                task.Invoke();
-                //loadingScreen.Log($" {sw.ElapsedMilliseconds}ms.", newLine: false);
-                return sw.ElapsedMilliseconds;
-            }
+            var sw = System.Diagnostics.Stopwatch.StartNew();
             task.Invoke();
-            return 0;
+            return sw.ElapsedMilliseconds;
         }
     }
 
