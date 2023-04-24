@@ -6,6 +6,9 @@ namespace TerrainGeneration
 {
 	public class MeshLoader : MonoBehaviour
 	{
+        public bool loadOnStart;
+        public bool disableLoading;
+
 		public struct LoadInfo
         {
 			public int vertexCount;
@@ -13,8 +16,16 @@ namespace TerrainGeneration
 			public long loadDuration;
         }
 
-		public LoadInfo Load()
+        private void Start()
         {
+            if (loadOnStart)
+                Load();
+        }
+
+        public LoadInfo Load()
+        {
+            if (disableLoading)
+                return default;
 			return new LoadInfo();
         }
 	}
