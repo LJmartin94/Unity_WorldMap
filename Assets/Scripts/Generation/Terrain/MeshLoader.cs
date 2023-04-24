@@ -44,8 +44,8 @@ namespace TerrainGeneration
 
             for (int i = 0; i < meshes.Length; i++)
             {
-                var renderObject = new GameObject();
-                allObjects[i] = renderObject;
+                var renderObject = new GameObject(); //this still needs fixing
+                allObjects[i] = renderObject.gameObject;
 
                 if (staticBatching)
                     allObjects[i].gameObject.isStatic = true;
