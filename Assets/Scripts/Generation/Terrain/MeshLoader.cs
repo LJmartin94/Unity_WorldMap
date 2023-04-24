@@ -9,6 +9,11 @@ namespace TerrainGeneration
         public bool loadOnStart;
         public bool disableLoading;
 
+        public TextAsset loadFile;
+        public Material mat;
+        public bool staticBatching;
+
+
 		public struct LoadInfo
         {
 			public int vertexCount;
@@ -19,14 +24,20 @@ namespace TerrainGeneration
         private void Start()
         {
             if (loadOnStart)
-                Load();
+                Load(loadFile, mat, transform, staticBatching);
         }
 
         public LoadInfo Load()
         {
             if (disableLoading)
                 return default;
-			return new LoadInfo();
+            return Load(loadFile, mat, transform, staticBatching, gameObject.layer);
+        }
+
+        public static LoadInfo Load(TextAsset loadFile, Material mat, Transform parent, bool staticBatching, int layer = 0)
+        {
+            LoadInfo info = new LoadInfo();
+            return info;
         }
 	}
 }
