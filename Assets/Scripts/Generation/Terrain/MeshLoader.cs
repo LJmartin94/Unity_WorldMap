@@ -36,6 +36,8 @@ namespace TerrainGeneration
 
         public static LoadInfo Load(TextAsset loadFile, Material mat, Transform parent, bool staticBatching, int layer = 0)
         {
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            
             LoadInfo info = new LoadInfo();
             SimpleMeshData[] meshes = MeshSerialiser.BytesToMeshes(loadFile.bytes);
             GameObject[] allObjects = new GameObject[meshes.Length];
@@ -52,7 +54,8 @@ namespace TerrainGeneration
             }
             if (staticBatching)
                 StaticBatchingUtility.Combine(allObjects, parent.gameObject);
-
+            
+            info.loadDuration = sw.ElapsedMilliseconds;
             return info;
         }
 	}
