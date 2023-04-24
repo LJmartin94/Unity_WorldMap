@@ -37,6 +37,22 @@ namespace TerrainGeneration
         public static LoadInfo Load(TextAsset loadFile, Material mat, Transform parent, bool staticBatching, int layer = 0)
         {
             LoadInfo info = new LoadInfo();
+            SimpleMeshData[] meshes = MeshSerialiser.BytesToMeshes(loadFile.bytes);
+            GameObject[] allObjects = new GameObject[meshes.Length];
+
+            for (int i = 0; i < meshes.Length; i++)
+            {
+                var renderObject = new GameObject();
+                allObjects[i] = renderObject;
+
+                if (staticBatching)
+                    allObjects[i].gameObject.isStatic = true;
+                info.vertexCount += meshes[i].vertices.Length;
+                info.numMeshes++;
+            }
+            if (staticBatching)
+                StaticBatchingUtility.Combine(allObjects, parent.gameObject);
+
             return info;
         }
 	}
