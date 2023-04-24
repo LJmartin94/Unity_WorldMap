@@ -6,12 +6,12 @@ namespace TerrainGeneration
 {
 	public class MeshLoader : MonoBehaviour
 	{
-        public bool loadOnStart;
-        public bool disableLoading;
+        public bool loadOnStart = false;
+        public bool disableLoading = false;
 
         public TextAsset loadFile;
         public Material mat;
-        public bool staticBatching;
+        public bool staticBatching = true;
 
 
 		public struct LoadInfo
