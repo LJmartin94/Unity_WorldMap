@@ -6,9 +6,16 @@ namespace TerrainGeneration
 {
 	public class MeshLoader : MonoBehaviour
 	{
-		public void Load()
+		public struct LoadInfo
         {
-			return;
+			public int vertexCount;
+			public int numMeshes;
+			public long loadDuration;
+        }
+
+		public LoadInfo Load()
+        {
+			return new LoadInfo();
         }
 	}
 }
