@@ -94,4 +94,59 @@ public static class MeshHelper
         if (meshData.texCoords.Length == numVertices)
             mesh.SetUVs(0, meshData.texCoords);
     }
+
+
+
+    //	public static Mesh CreateMesh(Vector3[] vertices, int[] triangles, bool recalculateNormals = false)
+    //	{
+    //		SimpleMeshData meshData = new SimpleMeshData(vertices, triangles);
+    //		return CreateMesh(meshData, recalculateNormals);
+    //	}
+
+
+    //	public static Mesh CreateMesh(Vector3[] vertices, int[] triangles, Vector3[] normals)
+    //	{
+    //		SimpleMeshData meshData = new SimpleMeshData(vertices, triangles, normals);
+    //		return CreateMesh(meshData, false);
+    //	}
+
+
+    //	public static Mesh CreateMesh(Vector2[] vertices2D, int[] triangles, bool recalculateNormals = false)
+    //	{
+    //		Vector3[] vertices = new Vector3[vertices2D.Length];
+    //		for (int i = 0; i < vertices.Length; i++)
+    //		{
+    //			vertices[i] = vertices2D[i];
+    //		}
+    //		return CreateMesh(vertices, triangles, recalculateNormals);
+    //	}
+
+
+    //	// Note, triangle face dir depends on order of outline points and on the direction
+    //	// (TODO: handle face dir automatically)
+
+    //	public static Mesh CreateEdgeMesh(Vector3[] outline, Vector3 direction, float dst)
+    //	{
+    //		int numFaces = outline.Length;
+    //		Vector3[] vertices = new Vector3[outline.Length * 2];
+    //		int[] triangles = new int[numFaces * 2 * 3];
+
+    //		for (int i = 0; i < outline.Length; i++)
+    //		{
+    //			int topVertexIndex = i * 2 + 0;
+    //			int bottomVertexIndex = i * 2 + 1;
+    //			vertices[topVertexIndex] = outline[i];
+    //			vertices[bottomVertexIndex] = outline[i] + direction * dst;
+
+    //			int triIndex = i * 2 * 3;
+    //			triangles[triIndex + 0] = topVertexIndex;
+    //			triangles[triIndex + 1] = bottomVertexIndex;
+    //			triangles[triIndex + 2] = (bottomVertexIndex + 1) % vertices.Length;
+
+    //			triangles[triIndex + 3] = bottomVertexIndex;
+    //			triangles[triIndex + 4] = (bottomVertexIndex + 2) % vertices.Length;
+    //			triangles[triIndex + 5] = (bottomVertexIndex + 1) % vertices.Length;
+    //		}
+    //		return CreateMesh(vertices, triangles, true);
+    //	}
 }
