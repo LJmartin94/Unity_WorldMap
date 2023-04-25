@@ -8,6 +8,15 @@ public static class MeshHelper
     static Material defaultMaterial;
     static Shader defaultShader;
 
+    static Material GetDefaultMaterial()
+    {
+        if (defaultShader == null)
+            defaultShader = Shader.Find("Unlit/Color");
+        if (defaultMaterial == null || defaultMaterial.shader != defaultShader)
+            defaultMaterial = new Material(defaultShader);
+        return defaultMaterial;
+    }
+
     // Create GameObject with mesh renderer and filter components applied
     public static RenderObject CreateRenderObject(string name, 
                                                   Mesh mesh = null, 
@@ -40,14 +49,5 @@ public static class MeshHelper
 
         RenderObject ret = new RenderObject(meshHolder, meshRenderer, meshFilter, mat);
         return ret;
-    }
-
-    static Material GetDefaultMaterial()
-    {
-        if (defaultShader == null)
-            defaultShader = Shader.Find("Unlit/Color");
-        if (defaultMaterial == null || defaultMaterial.shader != defaultShader)
-            defaultMaterial = new Material(defaultShader);
-        return defaultMaterial;
     }
 }
