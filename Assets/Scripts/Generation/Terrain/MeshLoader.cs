@@ -44,7 +44,7 @@ namespace TerrainGeneration
 
             for (int i = 0; i < meshes.Length; i++)
             {
-                var renderObject = new GameObject(); //this still needs fixing
+                var renderObject = MeshHelper.CreateRenderObject(meshes[i].name, meshes[i], mat, parent: parent, layer: layer);
                 allObjects[i] = renderObject.gameObject;
 
                 if (staticBatching)
