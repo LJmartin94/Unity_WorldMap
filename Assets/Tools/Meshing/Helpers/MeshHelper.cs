@@ -17,6 +17,16 @@ public static class MeshHelper
         return defaultMaterial;
     }
 
+    public static RenderObject CreateRenderObject(string name,
+                                                  SimpleMeshData meshData,
+                                                  Material mat = null,
+                                                  Transform parent = null,
+                                                  int layer = 0)
+    {
+        Mesh mesh = meshData; //Convert SimpleMeshData to Mesh
+        return CreateRenderObject(name, mesh, mat, parent, layer);
+    }
+
     // Create GameObject with mesh renderer and filter components applied
     public static RenderObject CreateRenderObject(string name, 
                                                   Mesh mesh = null, 
