@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 public static class MeshHelper
 {
     static Material defaultMaterial;
+    static Shader defaultShader;
 
     // Create GameObject with mesh renderer and filter components applied
     public static RenderObject CreateRenderObject(string name, 
@@ -19,7 +20,7 @@ public static class MeshHelper
         MeshRenderer meshRenderer = meshHolder.AddComponent<MeshRenderer>();
 
         if (mat == null)
-            mat = defaultMaterial;
+            mat = GetDefaultMaterial();
 
         //When the application is running we reference an instance of the mesh directly,
         //otherwise we reference the shared mesh, which governs all instances.
@@ -39,5 +40,14 @@ public static class MeshHelper
 
         RenderObject ret = new RenderObject(meshHolder, meshRenderer, meshFilter, mat);
         return ret;
+    }
+
+    static Material GetDefaultMaterial()
+    {
+        if (defaultShader == null)
+            defaultShader = Shader.Find("Unlit/Color");
+        if (defaultMaterial == null || defaultMaterial.shader != defaultShader)
+            defaultMaterial = new Material(defaultShader);
+        return defaultMaterial;
     }
 }
