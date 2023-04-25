@@ -849,9 +849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logTaskLoadTimes: 0
   logTotalLoadTime: 0
-  sunLight: {fileID: 705507994}
   oceanLoader: {fileID: 1803010449}
-  countryOutlineLoader: {fileID: 0}
   deactivateWhileLoading: []
 --- !u!1 &730266944
 GameObject:
@@ -2159,11 +2157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9522a404aa81df4c8016ce1fcb3d54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadFile: {fileID: 4900000, guid: d82e283f31d8d0f468f73e1dd5edfa0f, type: 3}
-  mat: {fileID: 2100000, guid: 9b3ad4044d315a5408c63e691989df4b, type: 2}
-  useStaticBatching: 1
-  loadOnStart: 1
+  loadOnStart: 0
   disableLoading: 0
+  loadFile: {fileID: 4900000, guid: 71d5722565b29e94c835e98eb813b388, type: 3}
+  mat: {fileID: 0}
+  staticBatching: 1
 --- !u!1 &1806562392
 GameObject:
   m_ObjectHideFlags: 0
