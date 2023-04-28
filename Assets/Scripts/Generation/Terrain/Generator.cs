@@ -19,8 +19,10 @@ public abstract class Generator : MonoBehaviour
             case StartupMode.DoNothing:
                 break;
             case StartupMode.Generate:
+                StartGenerating();
                 break;
             case StartupMode.Load:
+                Load();
                 break;
         }
     }
@@ -36,4 +38,10 @@ public abstract class Generator : MonoBehaviour
         generationInProgress = false;
         generationComplete = true;
     }
+
+    public abstract void StartGenerating();
+
+    public abstract void Save();
+
+    public abstract void Load();
 }
