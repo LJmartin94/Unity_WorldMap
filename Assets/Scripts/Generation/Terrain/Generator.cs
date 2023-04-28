@@ -7,7 +7,8 @@ public abstract class Generator : MonoBehaviour
     public enum StartupMode { DoNothing, Generate, Load }
     public StartupMode startupMode;
 
-    public bool isGenerating { get; private set; }
+    //States
+    public bool generationInProgress { get; private set; }
     public bool generationComplete { get; private set; }
 
     // Start is called before the first frame update
@@ -22,5 +23,17 @@ public abstract class Generator : MonoBehaviour
             case StartupMode.Load:
                 break;
         }
+    }
+
+    protected void startGenerationState()
+    {
+        generationInProgress = true;
+        generationComplete = false;
+    }
+
+    protected void stopGenerationState()
+    {
+        generationInProgress = false;
+        generationComplete = true;
     }
 }
