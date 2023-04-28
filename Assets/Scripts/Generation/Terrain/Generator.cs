@@ -44,4 +44,12 @@ public abstract class Generator : MonoBehaviour
     public abstract void Save();
 
     public abstract void Load();
+
+    protected virtual string SavePath
+    {
+        get
+        {
+            return FileHelper.MakePath("Assets", "Data", "Terrain");
+        }
+    }
 }
