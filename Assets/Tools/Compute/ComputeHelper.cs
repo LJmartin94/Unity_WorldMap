@@ -188,20 +188,33 @@ public static class ComputeHelper
     //	return renderTexture;
     //}
 
-    //public static RenderTexture CreateRenderTexture(int width, int height, FilterMode filterMode, GraphicsFormat format, string name = "Unnamed", DepthMode depthMode = DepthMode.None, bool useMipMaps = false)
-    //{
-    //	RenderTexture texture = new RenderTexture(width, height, (int)depthMode);
-    //	texture.graphicsFormat = format;
-    //	texture.enableRandomWrite = true;
-    //	texture.autoGenerateMips = false;
-    //	texture.useMipMap = useMipMaps;
-    //	texture.Create();
+    public static RenderTexture CreateRenderTexture(int width,
+                                                    int height, 
+                                                    FilterMode filterMode, 
+                                                    GraphicsFormat format, 
+                                                    string name = "Unnamed", 
+                                                    DepthMode depthMode = DepthMode.None, 
+                                                    bool useMipMaps = false)
+    {
+        RenderTexture texture = new RenderTexture(width, height, (int)depthMode);
+        
+        //Format info: https://docs.unity3d.com/ScriptReference/Experimental.Rendering.GraphicsFormat.html
+        texture.graphicsFormat = format;
+        texture.enableRandomWrite = true;
 
-    //	texture.name = name;
-    //	texture.wrapMode = TextureWrapMode.Clamp;
-    //	texture.filterMode = filterMode;
-    //	return texture;
-    //}
+        //Mipmaps are precomputed, progressively lower resolution versions of a texture.
+        //Using lower res textures is better for rendering objects that are far away,
+        //and may only have a few pixels visible
+        texture.autoGenerateMips = false;
+        texture.useMipMap = useMipMaps;
+        
+        texture.Create();
+
+        texture.name = name;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.filterMode = filterMode;
+        return texture;
+    }
 
     //public static void CreateRenderTexture(ref RenderTexture texture, RenderTexture template)
     //{
