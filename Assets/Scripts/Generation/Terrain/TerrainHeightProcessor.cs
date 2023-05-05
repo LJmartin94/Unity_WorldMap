@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public class TerrainHeightProcessor : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class TerrainHeightProcessor : MonoBehaviour
 
     public RenderTexture ProcessHeightMap()
     {
+        const int worldHeightsKernel = 0;
+
+        GraphicsFormat format = GraphicsFormat.R16_UNorm;
+        processedHeightMap = ComputeHelper.CreateRenderTexture(heightMap.width, 
+            heightMap.height, FilterMode.Bilinear, format, "World Heights", useMipMaps: true);
+
         return processedHeightMap;
     }
 
@@ -21,7 +28,7 @@ public class TerrainHeightProcessor : MonoBehaviour
     }
     public void Release()
     {
-        //ComputeHelper.Release(processedHeightMap);
+        ComputeHelper.Release(processedHeightMap);
         Resources.UnloadAsset(heightMap);
         heightMapCompute = null;
     }
