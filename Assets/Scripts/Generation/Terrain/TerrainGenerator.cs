@@ -8,7 +8,7 @@ public class TerrainGenerator : Generator
 
     [Header("References")]
 
-    public TerrainGeneration.TerrainHeightProcessor heightProcessor;
+    public TerrainHeightProcessor heightProcessor;
 
     //Generation result
     List<SimpleMeshData> allCombinedMeshes;
