@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class TerrainGenerator : Generator
 {
+    [Header("Settings")]
+
+    [Header("References")]
+
+    public TerrainGeneration.TerrainHeightProcessor heightProcessor;
+
     //Generation result
     List<SimpleMeshData> allCombinedMeshes;
 
@@ -18,7 +24,7 @@ public class TerrainGenerator : Generator
         startGenerationState();
 
         allCombinedMeshes = new List<SimpleMeshData>();
-        RenderTexture heightMap;
+        RenderTexture heightMap = heightProcessor.ProcessHeightMap();
 
 
     }
