@@ -1,7 +1,7 @@
-#ifndef GEOMATH_INCLUDED
-#define GEOMATH_INCLUDED
+#ifndef GEOMATHS_INCLUDED
+#define GEOMATHS_INCLUDED
 
-#include "Assets/Scripts/Shader Common/Math.hlsl"
+#include "Assets/Scripts/Shader Common/Maths.hlsl"
 
 //// Get point on sphere from long/lat (given in radians)
 //float3 longitudeLatitudeToPoint(float2 longLat) {

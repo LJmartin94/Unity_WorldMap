@@ -5,7 +5,7 @@
 
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel ProcessHeights
-#include "Assets/Scripts/Shader Common/GeoMath.hlsl"
+#include "Assets/Scripts/Shader Common/GeoMaths.hlsl"
 
 
 Texture2D<float> RawHeightMap;
