@@ -5,7 +5,7 @@
 
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel ProcessHeights
-#include "Assets/Scripts/Shader Common/GeoMath.hlsl"
+//#include "Assets/Scripts/Shader Common/GeoMath.hlsl"
 
 
 Texture2D<float> RawHeightMap;
@@ -14,3 +14,39 @@ SamplerState height_linear_clamp;
 // with cs.SetTexture
 RWTexture2D<float> WorldHeightMap;
 uint2 size;
+
+public float smoothValue = 4.5; 
+public int mapWidth = 16384;
+public float blendFactor = 0.35; //percentage of height contributed by centre, versus avg of neighbours
+
+float calculateSmoothHeight(int2 index)
+{
+	//original code has (2,1), but that seems like x,y mixup? 
+	//Unless you want width to influence more than height? 
+	//- Which could also be the case, to combat mercator projection
+	float2 offset = float2(1, 2) / mapWidth * smoothValue; //map is 2:1 width:len ratio, so y*2
+	float2 uv = index / float2(size.x - 1, size.y - 1); //texture coords as vals between 0-1
+	float centre = sampleHeight(uv);
+
+	if (centre < 0.01)
+		return centre;
+
+	float hN = sampleHeight(uv + float2(0,1) * offset);
+	float hS = sampleHeight(uv + float2(0,-1) * offset);
+	float hW = sampleHeight(uv + float2(-1,0) * offset);
+	float hE = sampleHeight(uv + float2(1,0) * offset);
+
+	float diagonalWeight = 0.707; //0.707 is sqrt(2)/2
+	//this ensures that e.g. NE sample is taken at same distance from centre as N or E sample.
+	float hNE = sampleHeight(uv + float2(1,1) * diagonalWeight * offset);
+	float hSW = sampleHeight(uv + float2(-1,-1) * diagonalWeight * offset);
+	float hNW = sampleHeight(uv + float2(-1,1) * diagonalWeight * offset);
+	float hSE = sampleHeight(uv + float2(1,-1) * diagonalWeight * offset);
+
+	return lerp(h0, (hN + hS + hW + hE + hNE + hSW + hNW + hSE) / 8.0, blendFactor);
+}
+
+float sampleHeight(float2 uv)
+{
+	return RawHeightMap.SampleLevel(height_linear_clamp, uv, 0);
+}
