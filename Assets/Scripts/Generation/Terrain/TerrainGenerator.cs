@@ -9,6 +9,9 @@ public class TerrainGenerator : Generator
     [Header("References")]
 
     [Header("Save/Load Settings")]
+    public string meshSaveFileName;
+    public TextAsset loadFile;
+
     public TerrainHeightProcessor heightProcessor;
 
     //Generation result
