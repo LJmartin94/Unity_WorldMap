@@ -8,6 +8,7 @@ public class TerrainGenerator : Generator
 
     [Header("References")]
 
+    [Header("Save/Load Settings")]
     public TerrainHeightProcessor heightProcessor;
 
     //Generation result
