@@ -1,0 +1,4 @@
+#ifndef GEOMATH_INCLUDED
+#define GEOMATH_INCLUDED
+
+#endif
