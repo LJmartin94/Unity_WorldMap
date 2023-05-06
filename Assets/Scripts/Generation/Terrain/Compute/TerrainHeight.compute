@@ -1,14 +1,16 @@
-// Each #kernel tells which function to compile; you can have many kernels
-#pragma kernel CSMain
+// Takes raw height map [0, 1] and calculates actual world heights.
+// This includes smoothing out sharp peaks.
+// Saves result in texture.
 
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel ProcessHeights
+#include "Assets/Scripts/Shader Common/GeoMath.hlsl"
+
+
+Texture2D<float> RawHeightMap;
+SamplerState height_linear_clamp;
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
-RWTexture2D<float4> Result;
-
-[numthreads(8,8,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
-{
-    // TODO: insert actual code here!
-
-    Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
-}
+RWTexture2D<float> WorldHeightMap;
+uint2 size;
