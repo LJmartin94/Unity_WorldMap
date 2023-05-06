@@ -19,6 +19,17 @@ public float smoothValue = 4.5;
 public int mapWidth = 16384;
 public float blendFactor = 0.35; //percentage of height contributed by centre, versus avg of neighbours
 
+[numthreads(8,8,1)]
+void ProcessHeights (uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= size.x || id.y >= size.y) 
+		return;
+	
+	float smoothHeight = calculateSmoothHeight(id.xy);
+	//WorldHeightMap[id.xy] = RawHeightMap[id.xy];
+	WorldHeightMap[id.xy] = smoothHeight;
+}
+
 float calculateSmoothHeight(int2 index)
 {
 	//original code has (2,1), but that seems like x,y mixup? 
